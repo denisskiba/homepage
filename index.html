@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Моя страница</title>
+  <meta name="description" content="Простая адаптивная HTML-страница для сайта или портфолио." />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent2: #22c55e;
+      --border: rgba(255,255,255,0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #020617, var(--bg));
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      background: rgba(2, 6, 23, 0.8);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .nav a {
+      color: var(--text);
+      text-decoration: none;
+      margin-left: 16px;
+      opacity: 0.9;
+    }
+
+    .nav a:hover {
+      color: var(--accent);
+    }
+
+    .hero {
+      padding: 96px 0 64px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      margin: 0 0 16px;
+      font-size: clamp(2.2rem, 5vw, 4.5rem);
+      line-height: 1.1;
+    }
+
+    .hero p {
+      max-width: 720px;
+      margin: 0 auto 28px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid var(--border);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #00111a;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+    }
+
+    .features {
+      padding: 24px 0 96px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: rgba(17, 24, 39, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 28px 0 40px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav a {
+        margin-left: 0;
+        margin-right: 14px;
+      }
+
+      .hero {
+        padding-top: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo">MySite</div>
+      <nav>
+        <a href="#about">О сайте</a>
+        <a href="#features">Возможности</a>
+        <a href="#contact">Контакты</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Простая и стильная HTML-страница</h1>
+      <p>
+        Это готовый шаблон, который можно использовать как личную страницу,
+        портфолио, визитку или стартовый сайт для GitHub Pages.
+      </p>
+      <div class="buttons">
+        <a class="btn btn-primary" href="#features">Смотреть возможности</a>
+        <a class="btn btn-secondary" href="#contact">Связаться</a>
+      </div>
+    </section>
+
+    <section id="features" class="features">
+      <div class="card">
+        <h2>Адаптивность</h2>
+        <p>Страница хорошо выглядит на телефоне, планшете и компьютере.</p>
+      </div>
+      <div class="card">
+        <h2>Простая структура</h2>
+        <p>Легко редактировать текст, цвета, ссылки и секции под свои задачи.</p>
+      </div>
+      <div class="card" id="about">
+        <h2>Готово для публикации</h2>
+        <p>Достаточно сохранить файл как index.html и загрузить в репозиторий.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="container">
+      © 2026 MySite. Все права защищены.
+    </div>
+  </footer>
+</body>
+</html>
