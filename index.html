@@ -3,25 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio UI</title>
+  <title>Desktop Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    :root { --bg:#000; --panel:rgba(18,18,18,.92); --border:rgba(255,255,255,.12); --text:#cfcfcf; --muted:#9a9a9a; --hover:rgba(255,255,255,.08); --shadow:0 20px 60px rgba(0,0,0,.45); }
+    :root { --bg:#000; --panel:#121212; --border:#333; --text:#cfcfcf; --muted:#9a9a9a; --hover:#2a2a2a; --dot-color:#3C3C3C; }
     * { box-sizing:border-box; }
-    body { background:var(--bg); font-family:"Roboto Mono", monospace; color:var(--text); font-size:16px; line-height:20px; overflow:hidden; margin:0; }
-    .window { position:absolute; width:640px; border:1px solid var(--border); border-radius:14px; background:var(--panel); box-shadow:var(--shadow); backdrop-filter:blur(8px); padding:20px; cursor:default; user-select:none; }
+    body { background:var(--bg); font-family:"Roboto Mono", monospace; color:var(--text); margin:0; height:100vh; display:flex; align-items:center; justify-content:center; }
+
+    .desktop-icon { display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; }
+    .desktop-icon img { width:64px; height:64px; }
+
+    .window { position:absolute; width:640px; border:1px solid var(--border); border-radius:20px; background:var(--panel); padding:20px; cursor:default; user-select:none; z-index:10; }
     .topbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:44px; color:var(--muted); cursor:grab; }
     .topbar:active { cursor:grabbing; }
-    .icon-wrapper { width:24px; height:24px; display:flex; align-items:center; justify-content:center; flex-shrink: 0; }
-    .icon-wrapper img { width:24px; height:24px; object-fit: contain; }
+    .icon-wrapper { width:24px; height:24px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .icon-wrapper img { width:24px; height:24px; object-fit:contain; }
     .items { display:grid; gap:6px; }
     a.item { display:flex; align-items:center; height:40px; padding:0 10px; border-radius:6px; color:var(--text); text-decoration:none; transition:background .18s; }
     .text-wrapper { margin-left:16px; }
     a.item:hover { background:var(--hover); color:#fff; }
     .footer { margin-top:20px; text-align:center; color:var(--muted); }
+    .hidden { display:none; }
   </style>
 </head>
 <body>
+
+  <div class="desktop-icon" id="desk-icon">
+    <img src="portfolio.svg" alt="portfolio">
+    <span>portfolio</span>
+  </div>
+
   <div class="window" id="window">
     <div class="topbar" id="header">
       <div style="display:flex; gap:8px;">
@@ -29,10 +40,10 @@
         <button style="background:none;border:0;color:#4a4a4a;cursor:default" disabled><svg width="20" height="20" viewBox="0 0 10 10" fill="currentColor"><path d="M3.5 1.5L8 5 3.5 8.5V1.5z"/></svg></button>
       </div>
       <div>/Users/denisskiba/portfolio</div>
-      <div style="display:flex;gap:8px;">
-        <span style="width:12px;height:12px;border-radius:50%;background:#3a3a3a"></span>
-        <span style="width:12px;height:12px;border-radius:50%;background:#3a3a3a"></span>
-        <span style="width:12px;height:12px;border-radius:50%;background:#3a3a3a"></span>
+      <div style="display:flex;gap:8px; cursor:pointer" id="close-btn">
+        <span style="width:12px;height:12px;border-radius:50%;background:var(--dot-color)"></span>
+        <span style="width:12px;height:12px;border-radius:50%;background:var(--dot-color)"></span>
+        <span style="width:12px;height:12px;border-radius:50%;background:#ff5f56"></span>
       </div>
     </div>
     <div class="items">
@@ -43,9 +54,16 @@
     </div>
     <div class="footer">4 items, 67 GB available</div>
   </div>
+
   <script>
     const win = document.getElementById('window');
     const header = document.getElementById('header');
+    const deskIcon = document.getElementById('desk-icon');
+    const closeBtn = document.getElementById('close-btn');
+
+    closeBtn.addEventListener('click', () => win.classList.add('hidden'));
+    deskIcon.addEventListener('click', () => win.classList.remove('hidden'));
+
     let offsetX, offsetY;
     header.addEventListener('mousedown', (e) => {
       offsetX = e.clientX - win.offsetLeft;
