@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>~/portfolio</title>
+  <title>Portfolio UI</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <style>
     :root { --bg:#000; --panel:rgba(18,18,18,.92); --border:rgba(255,255,255,.12); --text:#cfcfcf; --muted:#9a9a9a; --hover:rgba(255,255,255,.08); --shadow:0 20px 60px rgba(0,0,0,.45); }
     * { box-sizing:border-box; }
@@ -14,7 +13,7 @@
     .topbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:44px; color:var(--muted); cursor:grab; }
     .topbar:active { cursor:grabbing; }
     .icon-wrapper { width:24px; height:24px; display:flex; align-items:center; justify-content:center; flex-shrink: 0; }
-    .icon-wrapper svg { width:24px; height:24px; stroke:currentColor; fill:none; }
+    .icon-wrapper img { width:24px; height:24px; object-fit: contain; }
     .items { display:grid; gap:6px; }
     a.item { display:flex; align-items:center; height:40px; padding:0 10px; border-radius:6px; color:var(--text); text-decoration:none; transition:background .18s; }
     .text-wrapper { margin-left:16px; }
@@ -37,23 +36,10 @@
       </div>
     </div>
     <div class="items">
-      <a class="item" href="#"><span class="icon-wrapper"><?xml version='1.0' encoding='utf-8'?>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-<path d="M0 20V4C2.57706e-07 2.89543 0.89543 2 2 2H7.9248C8.44874 2.00008 8.95131 2.20619 9.3252 2.57324L12.4092 5.59961H22C23.1044 5.59961 23.9998 6.49522 24 7.59961V20C24 21.1046 23.1046 22 22 22H2C0.895431 22 0 21.1046 0 20ZM2 20H22V7.59961H12.4092C11.8852 7.59961 11.3818 7.3944 11.0078 7.02734L7.9248 4H2V20Z" fill="#BCBCBC"/>
-</svg></span><span class="text-wrapper">folder1</span></a>
-      <a class="item" href="#"><span class="icon-wrapper"><?xml version='1.0' encoding='utf-8'?>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-<path d="M0 20V4C2.57706e-07 2.89543 0.89543 2 2 2H7.9248C8.44874 2.00008 8.95131 2.20619 9.3252 2.57324L12.4092 5.59961H22C23.1044 5.59961 23.9998 6.49522 24 7.59961V20C24 21.1046 23.1046 22 22 22H2C0.895431 22 0 21.1046 0 20ZM2 20H22V7.59961H12.4092C11.8852 7.59961 11.3818 7.3944 11.0078 7.02734L7.9248 4H2V20Z" fill="#BCBCBC"/>
-</svg></span><span class="text-wrapper">folder2</span></a>
-      <a class="item" href="#"><span class="icon-wrapper"><?xml version='1.0' encoding='utf-8'?>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-<path d="M0 20V4C2.57706e-07 2.89543 0.89543 2 2 2H7.9248C8.44874 2.00008 8.95131 2.20619 9.3252 2.57324L12.4092 5.59961H22C23.1044 5.59961 23.9998 6.49522 24 7.59961V20C24 21.1046 23.1046 22 22 22H2C0.895431 22 0 21.1046 0 20ZM2 20H22V7.59961H12.4092C11.8852 7.59961 11.3818 7.3944 11.0078 7.02734L7.9248 4H2V20Z" fill="#BCBCBC"/>
-</svg></span><span class="text-wrapper">folder3</span></a>
-      <a class="item" href="#"><span class="icon-wrapper"><?xml version='1.0' encoding='utf-8'?>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-<path d="M3 21V3C3 1.89543 3.89543 1 5 1H14.9229C15.4482 1 15.953 1.20653 16.3271 1.5752L20.4043 5.59375C20.7856 5.96962 21 6.48313 21 7.01855V21C21 22.1046 20.1046 23 19 23H5C3.89543 23 3 22.1046 3 21ZM5 21H19V7.01855L14.9229 3H5V21Z" fill="#BCBCBC"/>
-<path d="M14 7V1L21 8H15C14.4477 8 14 7.55228 14 7Z" fill="#BCBCBC"/>
-</svg></span><span class="text-wrapper">file1.fig</span></a>
+      <a class="item" href="#"><span class="icon-wrapper"><img src="folder.svg" alt="folder"></span><span class="text-wrapper">folder1</span></a>
+      <a class="item" href="#"><span class="icon-wrapper"><img src="folder.svg" alt="folder"></span><span class="text-wrapper">folder2</span></a>
+      <a class="item" href="#"><span class="icon-wrapper"><img src="folder.svg" alt="folder"></span><span class="text-wrapper">folder3</span></a>
+      <a class="item" href="#"><span class="icon-wrapper"><img src="file.svg" alt="file"></span><span class="text-wrapper">file1.fig</span></a>
     </div>
     <div class="footer">4 items, 67 GB available</div>
   </div>
