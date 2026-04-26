@@ -3,208 +3,75 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Моя страница</title>
-  <meta name="description" content="Простая адаптивная HTML-страница для сайта или портфолио." />
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <title>Portfolio UI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #0f172a;
-      --card: #111827;
-      --text: #e5e7eb;
-      --muted: #94a3b8;
-      --accent: #38bdf8;
-      --accent2: #22c55e;
-      --border: rgba(255,255,255,0.08);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(180deg, #020617, var(--bg));
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    .container {
-      width: min(1100px, calc(100% - 32px));
-      margin: 0 auto;
-    }
-
-    header {
-      padding: 24px 0;
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(8px);
-      position: sticky;
-      top: 0;
-      background: rgba(2, 6, 23, 0.8);
-    }
-
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .logo {
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
-    .nav a {
-      color: var(--text);
-      text-decoration: none;
-      margin-left: 16px;
-      opacity: 0.9;
-    }
-
-    .nav a:hover {
-      color: var(--accent);
-    }
-
-    .hero {
-      padding: 96px 0 64px;
-      text-align: center;
-    }
-
-    .hero h1 {
-      margin: 0 0 16px;
-      font-size: clamp(2.2rem, 5vw, 4.5rem);
-      line-height: 1.1;
-    }
-
-    .hero p {
-      max-width: 720px;
-      margin: 0 auto 28px;
-      color: var(--muted);
-      font-size: 1.05rem;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 14px 22px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 700;
-      border: 1px solid var(--border);
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #00111a;
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--text);
-    }
-
-    .features {
-      padding: 24px 0 96px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
-    }
-
-    .card {
-      background: rgba(17, 24, 39, 0.9);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 24px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-    }
-
-    .card h2 {
-      margin-top: 0;
-      font-size: 1.2rem;
-    }
-
-    .card p {
-      margin-bottom: 0;
-      color: var(--muted);
-    }
-
-    footer {
-      padding: 28px 0 40px;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      text-align: center;
-      font-size: 0.95rem;
-    }
-
-    @media (max-width: 640px) {
-      .nav {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .nav a {
-        margin-left: 0;
-        margin-right: 14px;
-      }
-
-      .hero {
-        padding-top: 60px;
-      }
-    }
+    :root { --bg:#000; --panel:rgba(18,18,18,.92); --border:rgba(255,255,255,.12); --text:#cfcfcf; --muted:#9a9a9a; --hover:rgba(255,255,255,.08); --shadow:0 20px 60px rgba(0,0,0,.45); }
+    * { box-sizing:border-box; }
+    body { background:var(--bg); font-family:"Roboto Mono", monospace; color:var(--text); font-size:16px; line-height:20px; overflow:hidden; margin:0; }
+    .window { position:absolute; width:640px; border:1px solid var(--border); border-radius:14px; background:var(--panel); box-shadow:var(--shadow); backdrop-filter:blur(8px); padding:20px; cursor:default; user-select:none; }
+    .topbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:44px; color:var(--muted); cursor:grab; }
+    .topbar:active { cursor:grabbing; }
+    .icon-wrapper { width:24px; height:24px; display:flex; align-items:center; justify-content:center; flex-shrink: 0; }
+    .icon-wrapper svg { width:24px; height:24px; stroke:currentColor; fill:none; }
+    .items { display:grid; gap:6px; }
+    a.item { display:flex; align-items:center; height:40px; padding:0 10px; border-radius:6px; color:var(--text); text-decoration:none; transition:background .18s; }
+    .text-wrapper { margin-left:16px; }
+    a.item:hover { background:var(--hover); color:#fff; }
+    .footer { margin-top:20px; text-align:center; color:var(--muted); }
   </style>
 </head>
 <body>
-  <header>
-    <div class="container nav">
-      <div class="logo">MySite</div>
-      <nav>
-        <a href="#about">О сайте</a>
-        <a href="#features">Возможности</a>
-        <a href="#contact">Контакты</a>
-      </nav>
+  <div class="window" id="window">
+    <div class="topbar" id="header">
+      <div style="display:flex; gap:8px;">
+        <button style="background:none;border:0;color:#555;cursor:pointer"><svg width="20" height="20" viewBox="0 0 10 10" fill="currentColor"><path d="M6.5 1.5L2 5l4.5 3.5V1.5z"/></svg></button>
+        <button style="background:none;border:0;color:#4a4a4a;cursor:default" disabled><svg width="20" height="20" viewBox="0 0 10 10" fill="currentColor"><path d="M3.5 1.5L8 5 3.5 8.5V1.5z"/></svg></button>
+      </div>
+      <div>/Users/denisskiba/portfolio</div>
+      <div style="display:flex;gap:8px;">
+        <span style="width:12px;height:12px;border-radius:50%;background:#3a3a3a"></span>
+        <span style="width:12px;height:12px;border-radius:50%;background:#3a3a3a"></span>
+        <span style="width:12px;height:12px;border-radius:50%;background:#3a3a3a"></span>
+      </div>
     </div>
-  </header>
-
-  <main class="container">
-    <section class="hero">
-      <h1>Простая и стильная HTML-страница</h1>
-      <p>
-        Это готовый шаблон, который можно использовать как личную страницу,
-        портфолио, визитку или стартовый сайт для GitHub Pages.
-      </p>
-      <div class="buttons">
-        <a class="btn btn-primary" href="#features">Смотреть возможности</a>
-        <a class="btn btn-secondary" href="#contact">Связаться</a>
-      </div>
-    </section>
-
-    <section id="features" class="features">
-      <div class="card">
-        <h2>Адаптивность</h2>
-        <p>Страница хорошо выглядит на телефоне, планшете и компьютере.</p>
-      </div>
-      <div class="card">
-        <h2>Простая структура</h2>
-        <p>Легко редактировать текст, цвета, ссылки и секции под свои задачи.</p>
-      </div>
-      <div class="card" id="about">
-        <h2>Готово для публикации</h2>
-        <p>Достаточно сохранить файл как index.html и загрузить в репозиторий.</p>
-      </div>
-    </section>
-  </main>
-
-  <footer id="contact">
-    <div class="container">
-      © 2026 MySite. Все права защищены.
+    <div class="items">
+      <a class="item" href="#"><span class="icon-wrapper"><?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+<path d="M0 20V4C2.57706e-07 2.89543 0.89543 2 2 2H7.9248C8.44874 2.00008 8.95131 2.20619 9.3252 2.57324L12.4092 5.59961H22C23.1044 5.59961 23.9998 6.49522 24 7.59961V20C24 21.1046 23.1046 22 22 22H2C0.895431 22 0 21.1046 0 20ZM2 20H22V7.59961H12.4092C11.8852 7.59961 11.3818 7.3944 11.0078 7.02734L7.9248 4H2V20Z" fill="#BCBCBC"/>
+</svg></span><span class="text-wrapper">folder1</span></a>
+      <a class="item" href="#"><span class="icon-wrapper"><?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+<path d="M0 20V4C2.57706e-07 2.89543 0.89543 2 2 2H7.9248C8.44874 2.00008 8.95131 2.20619 9.3252 2.57324L12.4092 5.59961H22C23.1044 5.59961 23.9998 6.49522 24 7.59961V20C24 21.1046 23.1046 22 22 22H2C0.895431 22 0 21.1046 0 20ZM2 20H22V7.59961H12.4092C11.8852 7.59961 11.3818 7.3944 11.0078 7.02734L7.9248 4H2V20Z" fill="#BCBCBC"/>
+</svg></span><span class="text-wrapper">folder2</span></a>
+      <a class="item" href="#"><span class="icon-wrapper"><?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+<path d="M0 20V4C2.57706e-07 2.89543 0.89543 2 2 2H7.9248C8.44874 2.00008 8.95131 2.20619 9.3252 2.57324L12.4092 5.59961H22C23.1044 5.59961 23.9998 6.49522 24 7.59961V20C24 21.1046 23.1046 22 22 22H2C0.895431 22 0 21.1046 0 20ZM2 20H22V7.59961H12.4092C11.8852 7.59961 11.3818 7.3944 11.0078 7.02734L7.9248 4H2V20Z" fill="#BCBCBC"/>
+</svg></span><span class="text-wrapper">folder3</span></a>
+      <a class="item" href="#"><span class="icon-wrapper"><?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+<path d="M3 21V3C3 1.89543 3.89543 1 5 1H14.9229C15.4482 1 15.953 1.20653 16.3271 1.5752L20.4043 5.59375C20.7856 5.96962 21 6.48313 21 7.01855V21C21 22.1046 20.1046 23 19 23H5C3.89543 23 3 22.1046 3 21ZM5 21H19V7.01855L14.9229 3H5V21Z" fill="#BCBCBC"/>
+<path d="M14 7V1L21 8H15C14.4477 8 14 7.55228 14 7Z" fill="#BCBCBC"/>
+</svg></span><span class="text-wrapper">file1.fig</span></a>
     </div>
-  </footer>
+    <div class="footer">4 items, 67 GB available</div>
+  </div>
+  <script>
+    const win = document.getElementById('window');
+    const header = document.getElementById('header');
+    let offsetX, offsetY;
+    header.addEventListener('mousedown', (e) => {
+      offsetX = e.clientX - win.offsetLeft;
+      offsetY = e.clientY - win.offsetTop;
+      document.addEventListener('mousemove', move);
+      document.addEventListener('mouseup', () => document.removeEventListener('mousemove', move));
+    });
+    function move(e) {
+      win.style.left = (e.clientX - offsetX) + 'px';
+      win.style.top = (e.clientY - offsetY) + 'px';
+    }
+    win.style.left = (window.innerWidth - 640) / 2 + 'px';
+    win.style.top = (window.innerHeight - win.offsetHeight) / 2 + 'px';
+  </script>
 </body>
 </html>
