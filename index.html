@@ -3,18 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>~/portfolio</title>
+  <title>Desktop Portfolio</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <style>
     :root { --bg:#000; --panel:#121212; --border:#333; --text:#cfcfcf; --muted:#9a9a9a; --hover:#2a2a2a; --dot-color:#3C3C3C; }
     * { box-sizing:border-box; }
     body { background:var(--bg); font-family:"Roboto Mono", monospace; color:var(--text); margin:0; height:100vh; display:flex; align-items:center; justify-content:center; }
 
+    .desktop { position:absolute; bottom:64px; left:50%; transform:translateX(-50%); display:flex; align-items:flex-end; gap:40px; }
     .desktop-icon { display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; }
     .desktop-icon img { width:64px; height:64px; }
 
-    .window { position:absolute; width:640px; border:1px solid var(--border); border-radius:20px; background:var(--panel); padding:20px; cursor:default; user-select:none; z-index:10; }
+    .window { position:absolute; width:640px; border:1px solid var(--border); border-radius:20px; background:var(--panel); padding:20px; cursor:default; user-select:none; z-index:10; transform-origin:center center; }
+    .window.opening { animation: window-open 0.16s ease-out forwards; }
+    @keyframes window-open {
+      from { transform: scale(0.9) translateY(12px); }
+      to { transform: scale(1) translateY(0); }
+    }
+    .window.hidden { display:none; }
     .topbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:44px; color:var(--muted); cursor:grab; }
     .topbar:active { cursor:grabbing; }
     .icon-wrapper { width:24px; height:24px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
@@ -24,32 +31,42 @@
     .text-wrapper { margin-left:16px; }
     a.item:hover { background:var(--hover); color:#fff; }
     .footer { margin-top:20px; text-align:center; color:var(--muted); }
-    .hidden { display:none; }
 
-    /* Dots and Hover */
     .dot { width:12px; height:12px; border-radius:50%; background:var(--dot-color); }
-    .close-dot { background:var(--dot-color); cursor: pointer; transition: background 0.2s; }
-    .close-dot:hover { background: #fff; }
+    .close-dot { cursor:pointer; transition: background 0.2s; }
+    .close-dot:hover { background:#fff; }
+
+    .nav-btn { background:none; border:0; color:#4a4a4a; cursor:default; }
   </style>
 </head>
 <body>
 
-  <div class="desktop-icon" id="desk-icon">
-    <img src="portfolio.svg" alt="portfolio">
-    <span>portfolio</span>
+  <div class="desktop">
+    <div class="desktop-icon" data-window="bio-window">
+      <img src="portfolio.svg" alt="bio">
+      <span>bio</span>
+    </div>
+    <div class="desktop-icon" data-window="portfolio-window">
+      <img src="portfolio.svg" alt="portfolio">
+      <span>portfolio</span>
+    </div>
+    <div class="desktop-icon" data-window="spam-window">
+      <img src="portfolio.svg" alt="spam me">
+      <span>spam me</span>
+    </div>
   </div>
 
-  <div class="window" id="window">
-    <div class="topbar" id="header">
+  <div class="window hidden" id="portfolio-window">
+    <div class="topbar">
       <div style="display:flex; gap:8px;">
-        <button style="background:none;border:0;color:#555;cursor:pointer"><svg width="20" height="20" viewBox="0 0 10 10" fill="currentColor"><path d="M6.5 1.5L2 5l4.5 3.5V1.5z"/></svg></button>
-        <button style="background:none;border:0;color:#4a4a4a;cursor:default" disabled><svg width="20" height="20" viewBox="0 0 10 10" fill="currentColor"><path d="M3.5 1.5L8 5 3.5 8.5V1.5z"/></svg></button>
+        <button class="nav-btn" disabled><svg width="20" height="20" viewBox="0 0 10 10" fill="currentColor"><path d="M6.5 1.5L2 5l4.5 3.5V1.5z"/></svg></button>
+        <button class="nav-btn" disabled><svg width="20" height="20" viewBox="0 0 10 10" fill="currentColor"><path d="M3.5 1.5L8 5 3.5 8.5V1.5z"/></svg></button>
       </div>
       <div>/Users/denisskiba/portfolio</div>
       <div style="display:flex;gap:8px;">
         <div class="dot"></div>
         <div class="dot"></div>
-        <div class="dot close-dot" id="close-btn"></div>
+        <div class="dot close-dot" data-close="portfolio-window"></div>
       </div>
     </div>
     <div class="items">
@@ -61,28 +78,100 @@
     <div class="footer">4 items, 67 GB available</div>
   </div>
 
+  <div class="window hidden" id="bio-window">
+    <div class="topbar">
+      <div style="display:flex; gap:8px;">
+        <button class="nav-btn" disabled><svg width="20" height="20" viewBox="0 0 10 10" fill="currentColor"><path d="M6.5 1.5L2 5l4.5 3.5V1.5z"/></svg></button>
+        <button class="nav-btn" disabled><svg width="20" height="20" viewBox="0 0 10 10" fill="currentColor"><path d="M3.5 1.5L8 5 3.5 8.5V1.5z"/></svg></button>
+      </div>
+      <div>/Users/denisskiba/bio</div>
+      <div style="display:flex;gap:8px;">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot close-dot" data-close="bio-window"></div>
+      </div>
+    </div>
+    <div class="footer">bio window</div>
+  </div>
+
+  <div class="window hidden" id="spam-window">
+    <div class="topbar">
+      <div style="display:flex; gap:8px;">
+        <button class="nav-btn" disabled><svg width="20" height="20" viewBox="0 0 10 10" fill="currentColor"><path d="M6.5 1.5L2 5l4.5 3.5V1.5z"/></svg></button>
+        <button class="nav-btn" disabled><svg width="20" height="20" viewBox="0 0 10 10" fill="currentColor"><path d="M3.5 1.5L8 5 3.5 8.5V1.5z"/></svg></button>
+      </div>
+      <div>/Users/denisskiba/spam-me</div>
+      <div style="display:flex;gap:8px;">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot close-dot" data-close="spam-window"></div>
+      </div>
+    </div>
+    <div class="footer">spam me window</div>
+  </div>
+
+  
   <script>
-    const win = document.getElementById('window');
-    const header = document.getElementById('header');
-    const deskIcon = document.getElementById('desk-icon');
-    const closeBtn = document.getElementById('close-btn');
+  const desktopIcons = document.querySelectorAll('.desktop-icon');
 
-    closeBtn.addEventListener('click', () => win.classList.add('hidden'));
-    deskIcon.addEventListener('click', () => win.classList.remove('hidden'));
+  desktopIcons.forEach(icon => {
+    icon.addEventListener('click', () => {
+      const id = icon.getAttribute('data-window');
+      const win = document.getElementById(id);
+      if (!win) return;
 
+      const maxZ = Math.max(10, ...Array.from(document.querySelectorAll('.window')).map(w => parseInt(w.style.zIndex || '10')));
+      win.style.zIndex = maxZ + 1;
+
+      const alreadyVisible = !win.classList.contains('hidden');
+      win.classList.remove('hidden');
+      positionWindowUnderIcon(win, icon);
+      makeDraggable(win);
+
+      if (!alreadyVisible) {
+        win.classList.remove('opening');
+        void win.offsetWidth; // restart animation
+        win.classList.add('opening');
+        setTimeout(() => win.classList.remove('opening'), 200);
+      }
+    });
+  });
+
+  document.querySelectorAll('.close-dot').forEach(dot => {
+    dot.addEventListener('click', (e) => {
+      const id = dot.getAttribute('data-close');
+      const win = document.getElementById(id);
+      if (win) win.classList.add('hidden');
+      e.stopPropagation();
+    });
+  });
+
+  function positionWindowUnderIcon(win, icon) {
+    const iconRect = icon.getBoundingClientRect();
+    const winWidth = 640;
+    const left = iconRect.left + iconRect.width / 2 - winWidth / 2;
+    const top = (window.innerHeight - win.offsetHeight) / 2;
+    win.style.left = left + 'px';
+    win.style.top = top + 'px';
+  }
+
+  function makeDraggable(win) {
+    const header = win.querySelector('.topbar');
     let offsetX, offsetY;
-    header.addEventListener('mousedown', (e) => {
+    header.onmousedown = (e) => {
       offsetX = e.clientX - win.offsetLeft;
       offsetY = e.clientY - win.offsetTop;
-      document.addEventListener('mousemove', move);
-      document.addEventListener('mouseup', () => document.removeEventListener('mousemove', move));
-    });
-    function move(e) {
-      win.style.left = (e.clientX - offsetX) + 'px';
-      win.style.top = (e.clientY - offsetY) + 'px';
-    }
-    win.style.left = (window.innerWidth - 640) / 2 + 'px';
-    win.style.top = (window.innerHeight - win.offsetHeight) / 2 + 'px';
-  </script>
+      document.onmousemove = (e2) => {
+        win.style.left = (e2.clientX - offsetX) + 'px';
+        win.style.top = (e2.clientY - offsetY) + 'px';
+      };
+      document.onmouseup = () => {
+        document.onmousemove = null;
+        document.onmouseup = null;
+      };
+    };
+  }
+</script>
+
 </body>
 </html>
