@@ -9,9 +9,9 @@
   <style>
     :root { --bg:#000; --panel:#121212; --border:#333; --text:#cfcfcf; --muted:#9a9a9a; --hover:#2a2a2a; --dot-color:#3C3C3C; }
     * { box-sizing:border-box; }
-    body { background:var(--bg); font-family:"Roboto Mono", monospace; color:var(--text); margin:0; height:100vh; display:flex; align-items:center; justify-content:center; }
+    body { background:#000 url("bg.jpg") center center / cover no-repeat fixed; font-family:"Roboto Mono", monospace; color:var(--text); margin:0; height:100vh; display:flex; align-items:center; justify-content:center; }
 
-    .desktop { position:absolute; bottom:64px; left:50%; transform:translateX(-50%); display:flex; align-items:flex-end; gap:64px; }
+    .desktop { position:absolute; bottom:64px; left:50%; transform:translateX(-50%); display:flex; align-items:flex-end; gap:40px; }
     .desktop-icon { display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; }
     .desktop-icon img { width:64px; height:64px; }
 
@@ -37,9 +37,24 @@
     .close-dot:hover { background:#fff; }
 
     .nav-btn { background:none; border:0; color:#4a4a4a; cursor:default; }
-  </style>
+    #boot-screen { position:fixed; inset:0; background:#000; color:#cfcfcf; font-family:"Roboto Mono", monospace; z-index:9999; display:flex; align-items:flex-start; justify-content:flex-start; }
+    #boot-screen-inner { margin:64px; display:flex; flex-direction:column; gap:8px; }
+    .boot-line { opacity:0; }
+    .line-1 { animation: boot-line-show 0.6s steps(1,end) forwards; }
+    .line-2 { animation: boot-line-show 0.6s steps(1,end) forwards 1.6s; }
+    .line-3 { animation: boot-line-show 0.6s steps(1,end) forwards 2.6s; }
+    @keyframes boot-line-show { from { opacity:0; } to { opacity:1; } }
+</style>
 </head>
 <body>
+  <div id="boot-screen">
+    <div id="boot-screen-inner">
+      <div class="boot-line line-1">Copyright (C) 1986 Denis-Skiba</div>
+      <div class="boot-line line-2">All rights reserved.</div>
+      <div class="boot-line line-3">Portfolio disk. Version 1.00</div>
+    </div>
+  </div>
+
 
   <div class="desktop">
     <div class="desktop-icon" data-window="bio-window">
@@ -112,6 +127,14 @@
 
   
   <script>
+  window.addEventListener('load', () => {
+    const boot = document.getElementById('boot-screen');
+    if (!boot) return;
+    setTimeout(() => {
+      boot.style.display = 'none';
+    }, 4700);
+  });
+
   const desktopIcons = document.querySelectorAll('.desktop-icon');
 
   desktopIcons.forEach(icon => {
