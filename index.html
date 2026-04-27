@@ -40,9 +40,9 @@
     #boot-screen { position:fixed; inset:0; background:#000; color:#cfcfcf; font-family:"Roboto Mono", monospace; z-index:9999; display:flex; align-items:flex-start; justify-content:flex-start; }
     #boot-screen-inner { margin:64px; display:flex; flex-direction:column; gap:8px; }
     .boot-line { opacity:0; }
-    .line-1 { animation: boot-line-show 0.4s steps(1,end) forwards; }
-    .line-2 { animation: boot-line-show 0.4s steps(1,end) forwards 1.4s; }
-    .line-3 { animation: boot-line-show 0.4s steps(1,end) forwards 2.4s; }
+    .line-1 { animation: boot-line-show 0.42s steps(1,end) forwards; }
+    .line-2 { animation: boot-line-show 0.42s steps(1,end) forwards 1.12s; }
+    .line-3 { animation: boot-line-show 0.42s steps(1,end) forwards 1.82s; }
     @keyframes boot-line-show { from { opacity:0; } to { opacity:1; } }
 </style>
 </head>
@@ -132,7 +132,7 @@
     if (!boot) return;
     setTimeout(() => {
       boot.style.display = 'none';
-    }, 4700);
+    }, 3300);
   });
 
   const desktopIcons = document.querySelectorAll('.desktop-icon');
