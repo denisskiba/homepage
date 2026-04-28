@@ -61,15 +61,15 @@
 
   <div class="desktop">
     <div class="desktop-icon" data-window="bio-window">
-      <img src="portfolio.svg" alt="bio">
+      <img src="portfolio.svg" data-icon="bio" alt="bio">
       <span>bio</span>
     </div>
     <div class="desktop-icon" data-window="portfolio-window">
-      <img src="portfolio.svg" alt="portfolio">
+      <img src="portfolio.svg" data-icon="portfolio" alt="portfolio">
       <span>portfolio</span>
     </div>
     <div class="desktop-icon" data-window="spam-window">
-      <img src="portfolio.svg" alt="spam me">
+      <img src="portfolio.svg" data-icon="spam" alt="spam me">
       <span>spam me</span>
     </div>
   </div>
@@ -151,6 +151,10 @@
       positionWindowUnderIcon(win, icon);
       makeDraggable(win);
 
+      // меняем иконку на открытую
+      const img = icon.querySelector('img');
+      if (img) img.src = 'open.svg';
+
       if (!alreadyVisible) {
         win.classList.remove('opening');
         void win.offsetWidth;
@@ -164,7 +168,12 @@
     dot.addEventListener('click', (e) => {
       const id = dot.getAttribute('data-close');
       const win = document.getElementById(id);
-      if (win) win.classList.add('hidden');
+      if (win) {
+        win.classList.add('hidden');
+        // вернуть иконку на рабочем столе к portfolio.svg
+        const icon = document.querySelector(`.desktop-icon[data-window="${id}"] img`);
+        if (icon) icon.src = 'portfolio.svg';
+      }
       e.stopPropagation();
     });
   });
