@@ -11,7 +11,7 @@
     * { box-sizing:border-box; }
     body { background:#000 url("bg.jpg") center center / cover no-repeat fixed; font-family:"Roboto Mono", monospace; color:var(--text); margin:0; height:100vh; display:flex; align-items:center; justify-content:center; }
 
-    .desktop { position:absolute; bottom:64px; left:50%; transform:translateX(-50%); display:flex; align-items:flex-end; gap:40px; }
+    .desktop { position:absolute; bottom:64px; left:50%; transform:translateX(-50%); display:flex; align-items:flex-end; gap:56px; }
     .desktop-icon { display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; }
     .desktop-icon img { width:64px; height:64px; }
 
@@ -27,6 +27,7 @@
     .icon-wrapper { width:24px; height:24px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
     .icon-wrapper img { width:24px; height:24px; object-fit:contain; }
     .items { display:grid; gap:6px; }
+    .hidden { display:none; }
     a.item { display:flex; align-items:center; height:40px; padding:0 10px; border-radius:6px; color:var(--text); text-decoration:none; transition:background .18s; }
     .text-wrapper { margin-left:16px; }
     a.item:hover { background:var(--hover); color:#fff; }
@@ -37,6 +38,8 @@
     .close-dot:hover { background:#fff; }
 
     .nav-btn { background:none; border:0; color:#4a4a4a; cursor:default; }
+    .nav-btn.back-btn:not([disabled]) { cursor:pointer; color:#cfcfcf; }
+    .nav-btn.back-btn:not([disabled]):hover { color:#ffffff; }
     #boot-screen { position:fixed; inset:0; background:#000; color:#cfcfcf; font-family:"Roboto Mono", monospace; z-index:9999; display:flex; align-items:flex-start; justify-content:flex-start; }
     #boot-screen-inner { margin:64px; display:flex; flex-direction:column; gap:8px; }
     .boot-line { opacity:0; }
@@ -74,23 +77,28 @@
   <div class="window hidden" id="portfolio-window">
     <div class="topbar">
       <div style="display:flex; gap:8px;">
-        <button class="nav-btn" disabled><svg width="20" height="20" viewBox="0 0 10 10" fill="currentColor"><path d="M6.5 1.5L2 5l4.5 3.5V1.5z"/></svg></button>
+        <button class="nav-btn back-btn" data-view="root" disabled><svg width="20" height="20" viewBox="0 0 10 10" fill="currentColor"><path d="M6.5 1.5L2 5l4.5 3.5V1.5z"/></svg></button>
         <button class="nav-btn" disabled><svg width="20" height="20" viewBox="0 0 10 10" fill="currentColor"><path d="M3.5 1.5L8 5 3.5 8.5V1.5z"/></svg></button>
       </div>
-      <div>/Users/denisskiba/portfolio</div>
+      <div class="path-label">/Users/denisskiba/portfolio</div>
       <div style="display:flex;gap:8px;">
         <div class="dot"></div>
         <div class="dot"></div>
         <div class="dot close-dot" data-close="portfolio-window"></div>
       </div>
     </div>
-    <div class="items">
-      <a class="item" href="#"><span class="icon-wrapper"><img src="folder.svg" alt="folder"></span><span class="text-wrapper">folder1</span></a>
-      <a class="item" href="#"><span class="icon-wrapper"><img src="folder.svg" alt="folder"></span><span class="text-wrapper">folder2</span></a>
-      <a class="item" href="#"><span class="icon-wrapper"><img src="folder.svg" alt="folder"></span><span class="text-wrapper">folder3</span></a>
-      <a class="item" href="#"><span class="icon-wrapper"><img src="file.svg" alt="file"></span><span class="text-wrapper">file1.fig</span></a>
+    <div class="items view-root">
+      <a class="item folder-link" data-folder="bmw" href="#"><span class="icon-wrapper"><img src="folder.svg" alt="folder"></span><span class="text-wrapper">bmw</span></a>
+      <a class="item folder-link" data-folder="rosa" href="#"><span class="icon-wrapper"><img src="folder.svg" alt="folder"></span><span class="text-wrapper">rosa khutor</span></a>
+      <a class="item folder-link" data-folder="rollton" href="#"><span class="icon-wrapper"><img src="folder.svg" alt="folder"></span><span class="text-wrapper">rollton</span></a>
+      <a class="item folder-link" data-folder="uaz" href="#"><span class="icon-wrapper"><img src="folder.svg" alt="folder"></span><span class="text-wrapper">uaz</span></a>
     </div>
-    <div class="footer">4 items, 67 GB available</div>
+    <div class="items view-folder hidden">
+      <a class="item" href="#"><span class="icon-wrapper"><img src="file.svg" alt="file"></span><span class="text-wrapper">file1</span></a>
+      <a class="item" href="#"><span class="icon-wrapper"><img src="file.svg" alt="file"></span><span class="text-wrapper">file2</span></a>
+      <a class="item" href="#"><span class="icon-wrapper"><img src="file.svg" alt="file"></span><span class="text-wrapper">file3</span></a>
+    </div>
+    <div class="footer" id="portfolio-footer">4 items</div>
   </div>
 
   <div class="window hidden" id="bio-window">
@@ -106,7 +114,7 @@
         <div class="dot close-dot" data-close="bio-window"></div>
       </div>
     </div>
-    <div class="footer">bio window</div>
+    <div class="footer">0 items</div>
   </div>
 
   <div class="window hidden" id="spam-window">
@@ -122,19 +130,11 @@
         <div class="dot close-dot" data-close="spam-window"></div>
       </div>
     </div>
-    <div class="footer">spam me window</div>
+    <div class="footer">0 items</div>
   </div>
 
   
   <script>
-  window.addEventListener('load', () => {
-    const boot = document.getElementById('boot-screen');
-    if (!boot) return;
-    setTimeout(() => {
-      boot.style.display = 'none';
-    }, 3300);
-  });
-
   const desktopIcons = document.querySelectorAll('.desktop-icon');
 
   desktopIcons.forEach(icon => {
@@ -153,7 +153,7 @@
 
       if (!alreadyVisible) {
         win.classList.remove('opening');
-        void win.offsetWidth; // restart animation
+        void win.offsetWidth;
         win.classList.add('opening');
         setTimeout(() => win.classList.remove('opening'), 200);
       }
@@ -168,6 +168,45 @@
       e.stopPropagation();
     });
   });
+
+  // Внутренняя навигация и footer для окна portfolio
+  (function(){
+    const portfolioWin = document.getElementById('portfolio-window');
+    if (!portfolioWin) return;
+
+    const rootView = portfolioWin.querySelector('.view-root');
+    const folderView = portfolioWin.querySelector('.view-folder');
+    const pathLabel = portfolioWin.querySelector('.path-label');
+    const backBtn = portfolioWin.querySelector('.back-btn');
+    const footer = document.getElementById('portfolio-footer');
+
+    function updateFooter() {
+      const visibleItems = portfolioWin.querySelectorAll('.items:not(.hidden) .item').length;
+      if (footer) footer.textContent = `${visibleItems} items`;
+    }
+
+    updateFooter();
+
+    portfolioWin.querySelectorAll('.folder-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const folder = link.getAttribute('data-folder');
+        rootView.classList.add('hidden');
+        folderView.classList.remove('hidden');
+        backBtn.disabled = false;
+        pathLabel.textContent = `/Users/denisskiba/portfolio/${folder}`;
+        updateFooter();
+      });
+    });
+
+    backBtn.addEventListener('click', () => {
+      rootView.classList.remove('hidden');
+      folderView.classList.add('hidden');
+      backBtn.disabled = true;
+      pathLabel.textContent = '/Users/denisskiba/portfolio';
+      updateFooter();
+    });
+  })();
 
   function positionWindowUnderIcon(win, icon) {
     const iconRect = icon.getBoundingClientRect();
@@ -194,6 +233,15 @@
       };
     };
   }
+
+  // Boot screen hide logic
+  window.addEventListener('load', () => {
+    const boot = document.getElementById('boot-screen');
+    if (!boot) return;
+    setTimeout(() => {
+      boot.style.display = 'none';
+    }, 3300);
+  });
 </script>
 
 </body>
